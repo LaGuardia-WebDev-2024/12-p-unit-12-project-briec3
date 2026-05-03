@@ -15,82 +15,154 @@ Select ONE Additional Feature to Add
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8">
     <title>Unit 12 Project</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <h1>Quiz About [Me]</h1>
-    <hr />
-    <!-- Movie Question -->
-    <form id="movie-form">
-      <label>
-        🎥 What is my favorite movie?
-        <select id="movie-answer">
-          <option value="movie1">movie 1</option>
-          <option value="movie2">movie 2</option>
-          <option value="movie3">movie 3</option>
-          <option value="movie4">movie 4</option>
-        </select>
-      </label>
-      <button type="submit">Check Movie Answer</button>
-    </form>
-    <div id="movie-result">
-      <p id="movie-text"></p>
-    </div>
-    <hr />
-    <!-- Book Question -->
-    <form id="book-form">
-      <label>
-        📖 What is my favorite book?
-        <select id="book-answer">
-          <option value="book1">book 1</option>
-          <option value="book2">book 2</option>
-          <option value="book3">book 3</option>
-          <option value="book4">book 4</option>
-        </select>
-      </label>
-      <button type="submit">Check Book Answer</button>
-    </form>
-    <div id="book-result">
-      <p id="book-text"></p>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script>
-      
-      //========================Movie Question jQuery Code
-      $("#movie-form").on("submit", function (event) {
-        event.preventDefault();
 
-        var $answer = $("#movie-answer");
-        var answer = $answer.val();
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        if (answer === "movie1") {
-          $("#movie-text").text("YESSSS!");
-        } 
-        else {
-          $("#movie-text").text("Try Again!");
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
         }
-      });
 
-      //=======================Book Question jQuery Code
-      $("#book-form").on("submit", function (event) {
-        event.preventDefault();
-
-        var $answer = $("#book-answer");
-        var answer = $answer.val();
-
-        if (answer === "book1") {
-          $("#book-text").text("YESSSS!");
-        } 
-        else {
-          $("#book-text").text("Try Again!");
+        img {
+            margin: 10px;
+            width: 200px;
         }
-      });
-      
-    </script>
-  </body>
+
+        button {
+            margin: 10px;
+            padding: 5px 10px;
+        }
+
+        button:hover {
+            background-color: lightpink;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Quiz About Me</h1>
+<hr>
+
+<!-- MOVIE QUESTION -->
+<form id="movie-form">
+    <label>What is my favorite movie?</label>
+    <select id="movie-answer">
+        <option value="m1">Dazed and Confused</option>
+        <option value="m2">The Batman</option>
+        <option value="m3">Blink Twice</option>
+        <option value="m4">Waves (2019)</option>
+        <option value="m5">500 Days of Summer</option>
+    </select>
+    <button type="submit">Check Movie Answer</button>
+</form>
+
+<div id="movie-result">
+    <p id="movie-text"></p>
+
+    <img id="m1-img" src="https://upload.wikimedia.org/wikipedia/en/9/90/Dazed_and_Confused_poster.jpg">
+    <img id="m2-img" src="https://upload.wikimedia.org/wikipedia/en/8/8a/The_Batman_%282022_film%29_poster.jpg">
+    <img id="m3-img" src="https://upload.wikimedia.org/wikipedia/en/3/3c/Blink_Twice_film_poster.jpg">
+    <img id="m4-img" src="https://upload.wikimedia.org/wikipedia/en/3/3a/Waves_2019_film_poster.jpg">
+    <img id="m5-img" src="https://upload.wikimedia.org/wikipedia/en/d/df/500_Days_of_Summer_poster.jpg">
+</div>
+
+<hr>
+
+<!-- BOOK QUESTION -->
+<form id="book-form">
+    <label>What is my favorite book?</label>
+    <select id="book-answer">
+        <option value="b1">The Sun Is Also a Star</option>
+        <option value="b2">Bash and Audre Are Just Friends</option>
+        <option value="b3">The Poet X</option>
+        <option value="b4">Mickey7</option>
+    </select>
+    <button type="submit">Check Book Answer</button>
+</form>
+
+<div id="book-result">
+    <p id="book-text"></p>
+
+    <img id="b1-img" src="https://upload.wikimedia.org/wikipedia/en/3/3f/The_Sun_Is_Also_a_Star_book_cover.jpg">
+    <img id="b2-img" src="https://covers.openlibrary.org/b/title/12800000-L.jpg">
+    <img id="b3-img" src="https://upload.wikimedia.org/wikipedia/en/7/7f/The_Poet_X.png">
+    <img id="b4-img" src="https://upload.wikimedia.org/wikipedia/en/4/4f/Mickey7.jpg">
+</div>
+
+<hr>
+
+<!-- EXTRA IMAGE -->
+<img id="extra-img" src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad">
+
+<script>
+
+// hide all images at start
+$("img").hide();
+
+
+// MOVIE QUESTION
+$("#movie-form").on("submit", function(event) {
+    event.preventDefault();
+
+    var answer = $("#movie-answer").val();
+
+    $("#movie-result img").hide();
+    $("#" + answer + "-img").fadeIn();
+
+    if (answer === "m4-img") {
+        $("#movie-text").text("YESSSS!");
+    } else {
+        $("#movie-text").text("Try Again!");
+    }
+
+    $("#movie-result").fadeToggle();
+});
+
+
+// BOOK QUESTION
+$("#book-form").on("submit", function(event) {
+    event.preventDefault();
+
+    var answer = $("#book-answer").val();
+
+    $("#book-result img").hide();
+    $("#" + answer + "-img").slideDown();
+
+    if (answer === "b2") {
+        $("#book-text").text("YESSSS!");
+    } else {
+        $("#book-text").text("Try Again!");
+    }
+
+    $("#" + answer + "-img").animate({
+        width: "300px"
+    });
+});
+
+
+// HOVER FEATURE
+$("#extra-img").hover(
+    function() {
+        $(this).animate({opacity: 0.5});
+    },
+    function() {
+        $(this).animate({opacity: 1});
+    }
+);
+
+</script>
+
+</body>
+</html>
+
+
+
 
   <!--- Taken From Khan Academy HTML/JS: Making webpages interactive with jQuery-->
 </html>
